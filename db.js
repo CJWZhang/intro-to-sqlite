@@ -44,9 +44,58 @@ const getUserById = (request, response) => {
 // ----- FILL IN BELOW -----
 // Write and export the rest of the functions needed by index.js!
 
+const getAllUsers = (request, response) => {
+  const query = `SELECT * FROM user`;
+
+  db.all(query, (error, result) => {
+    if (error) {
+      console.error(error.message);
+      response.status(400).json({ error: error.message });
+      return;
+    }
+  
+    if (result) {
+      response.json(result);
+    } else {
+      response.sendStatus(404);
+    }
+  });
+
+};
+
+const createUser = (request, response) => {
+  console.log("trying to create user");
+  const id = request.body.id;
+  const name = request.body.name;
+
+  const insert = `INSERT INTO user (id, name) 
+                  VALUES (?, ?)`
+  console.log(insert);
+  db.get(insert, [id, name], (error, result) => {
+    if (error) {
+      console.error(error.message);
+      response.status(400).json({ error: error.message });
+      return;
+    }
+
+  });
+
+};
+
+const updateUser = (request, response) => {
+  const id = parseInt(request.params.id);
+  const query = `SELECT * FROM user WHERE id = ?`;
+  
+  
+
+}
+
 //#endregion Routes
 
 // This allows `index.js` to use functions defined in this file.
 module.exports = {
   getUserById,
+  getAllUsers,
+  createUser,
+  updateUser,
 };
