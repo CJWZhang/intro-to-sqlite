@@ -19,6 +19,8 @@ The database `foo.db` contains one table named `user`.
 Use DB Browser to explore this database before you write any code!
 
 ### Endpoints
+All of my endpoints are GET endpoints :)
+
 1. /users -> get all users in the user table
 
 2. /users/create -> create a user given id and name
