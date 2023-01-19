@@ -70,8 +70,30 @@ const createUser = (request, response) => {
 
   const insert = `INSERT INTO user (id, name) 
                   VALUES (?, ?)`
-  console.log(insert);
+
   db.get(insert, [id, name], (error, result) => {
+    if (error) {
+      console.error(error.message);
+      response.status(400).json({ error: error.message });
+      return;
+    }
+    
+    response.status(400).json({message : "success"});
+
+  });
+
+};
+
+const updateUser = (request, response) => {
+  const id = request.body.id; // id to change
+  const name = request.body.name; // new name
+
+
+  const update = `UPDATE user 
+                SET name = ?
+                WHERE id = ?`;
+  
+  db.get(update, [name, id], (error, result) => {
     if (error) {
       console.error(error.message);
       response.status(400).json({ error: error.message });
@@ -80,13 +102,26 @@ const createUser = (request, response) => {
 
   });
 
-};
+  response.status(400).json({message : "success"});
 
-const updateUser = (request, response) => {
-  const id = parseInt(request.params.id);
-  const query = `SELECT * FROM user WHERE id = ?`;
-  
-  
+}
+
+const deleteUser = (request, response) => {
+  const id = request.body.id; // id to delete 
+
+  const deleteID = `DELETE FROM user 
+                  WHERE id = ?`;
+
+  db.get(deleteID, [id], (error, result) => {
+    if (error) {
+      console.error(error.message);
+      response.status(400).json({ error: error.message });
+      return;
+    }
+
+  });
+
+  response.status(400).json({message : "success"});
 
 }
 
@@ -98,4 +133,6 @@ module.exports = {
   getAllUsers,
   createUser,
   updateUser,
+  deleteUser,
+
 };
