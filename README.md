@@ -17,3 +17,23 @@ You can ignore the middleware code -- at a very basic level, this code allows us
 The database `foo.db` contains one table named `user`.
 
 Use DB Browser to explore this database before you write any code!
+
+### Endpoints
+1. /users -> get all users in the user table
+
+2. /users/create -> create a user given id and name
+
+3. /users/update -> update the user's name given an ID
+
+4. /users/delete -> delete a user given the ID
+
+// Get all users
+app.get("/users", db.getAllUsers);
+// Create a new user
+app.get("/users/create",  db.createUser);
+
+// Update a user's name, given an id
+app.get("/users/update", db.updateUser);
+
+// Delete a user by id
+app.get("/users/delete", db.deleteUser);
